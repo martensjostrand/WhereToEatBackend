@@ -1,0 +1,6 @@
+encoding: UTF-8
+algorithm: MD5
+database:
+  url: 127.0.0.1
+  restaurantBucket: restaurants
+  restaurantType: default

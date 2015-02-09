@@ -3,8 +3,8 @@ package service;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import domain.Restaurant;
 import domain.RestaurantList;
+import domain.RestaurantSuggestion;
 import error.InternalErrorException;
 
 public class SuggestionService {
@@ -17,7 +17,7 @@ public class SuggestionService {
 		this.encoding = encoding;
 	}
 	
-	public Restaurant getSuggestion(RestaurantList restaurants, String date) {
+	public RestaurantSuggestion getSuggestion(RestaurantList restaurants, String date) {
 		try {
 			Random random = seedRandom(date);
 			return restaurants.getRestaurant(random);

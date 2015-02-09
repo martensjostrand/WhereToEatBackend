@@ -1,6 +1,6 @@
 package service.command;
 
-import java.util.Arrays;
+import java.util.Optional;
 
 import service.command.keys.WhereToEatDependencyKeys;
 
@@ -12,7 +12,7 @@ import com.yammer.tenacity.core.TenacityCommand;
 import domain.Restaurant;
 import domain.RestaurantList;
 
-public class FetchRestaurantsCommand extends TenacityCommand<RestaurantList>{
+public class FetchRestaurantsCommand extends TenacityCommand<Optional<RestaurantList>>{
 
 	private final RiakClient riakClient;
 	private final FetchValue fetchValue; 
@@ -24,14 +24,14 @@ public class FetchRestaurantsCommand extends TenacityCommand<RestaurantList>{
 	}
 	
 	@Override
-	protected RestaurantList run() throws Exception {
+	protected Optional<RestaurantList> run() throws Exception {
 		Response response = riakClient.execute(fetchValue);
-		return response.getValue(RestaurantList.class);
+		return Optional.ofNullable(response.getValue(RestaurantList.class));
 	}
 
 	@Override
-	protected RestaurantList getFallback() {
-		return new RestaurantList(Arrays.asList(new Restaurant("Failure: Kebaben")));
+	protected Optional<RestaurantList> getFallback() {
+		return Optional.of(RestaurantList.createFallback(new Restaurant("Failure: Kebaben")));
 	}
 
 }

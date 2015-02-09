@@ -8,14 +8,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType; 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
 import service.RestaurantStore;
 import service.SuggestionService;
 import domain.Place;
-import domain.Restaurant;
 import domain.RestaurantList;
+import domain.RestaurantSuggestion;
 
 @Path("/suggestion/{place}/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,7 +32,7 @@ public class SuggestionResource {
 
 	@GET
 	@Path("{date}")
-	public Restaurant getSuggestion(@PathParam("place") final Place place,
+	public RestaurantSuggestion getSuggestion(@PathParam("place") final Place place,
 									@PathParam("date") final String date) {
 		Optional<RestaurantList> restaurants = restaurantStore.getRestaurants(place);
 		if(restaurants.isPresent()) {

@@ -11,12 +11,14 @@ import org.junit.Test;
 
 import domain.Restaurant;
 import domain.RestaurantList;
+import domain.RestaurantSuggestion;
 
 public class SuggestionServiceTest {
 	
 	private final SuggestionService service = new SuggestionService("UTF-8", "MD5");
 	private final String date = "2015-05-25";
-	private final Restaurant expected = new Restaurant("Kebaben");
+	private final Restaurant restaurant = new Restaurant("Kebaben");
+	private final RestaurantSuggestion expected = new RestaurantSuggestion(restaurant, Boolean.FALSE);
 	private final RestaurantList restaurants = mock(RestaurantList.class);
 	
 	
@@ -24,7 +26,7 @@ public class SuggestionServiceTest {
 	public void test() {
 		when(restaurants.getRestaurant(any(Random.class))).thenReturn(expected);
 		
-		Restaurant actual = service.getSuggestion(restaurants, date);
+		RestaurantSuggestion actual = service.getSuggestion(restaurants, date);
 		
 		assertThat(actual).isEqualTo(expected);
 	}

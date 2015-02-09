@@ -17,7 +17,7 @@ public class RestaurantStore {
 	
 	public Optional<RestaurantList> getRestaurants(final Place place) {
 		FetchRestaurantsCommand command = fetchRestaurantsCommandFactory.create(place);
-		return Optional.ofNullable(command.execute());
+		return command.execute();
 	}
 
 }

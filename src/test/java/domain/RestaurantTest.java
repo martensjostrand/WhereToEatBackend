@@ -1,9 +1,11 @@
 package domain;
 
-import static io.dropwizard.testing.FixtureHelpers.*;
+import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.fest.assertions.api.Assertions.assertThat;
 import io.dropwizard.jackson.Jackson;
+
 import org.junit.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RestaurantTest {

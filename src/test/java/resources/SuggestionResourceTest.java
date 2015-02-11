@@ -62,7 +62,7 @@ public class SuggestionResourceTest {
 		Optional<RestaurantList> emptyRestaurants = Optional.empty();
 		when(restaurantStore.getRestaurants(any(Place.class))).thenReturn(emptyRestaurants);
 		try {
-			resources.client().resource("/suggetsion/1234/2015-02-05").get(Restaurant.class);
+			resources.client().resource("/suggetsion/1234/2015-02-05").get(RestaurantSuggestion.class);
 			fail("Should have thrown Exception");
 		} catch(UniformInterfaceException exception) {
 			assertThat(exception.getResponse().getStatus()).isEqualTo(Status.NOT_FOUND.getStatusCode());

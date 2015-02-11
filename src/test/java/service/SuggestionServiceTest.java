@@ -1,6 +1,7 @@
 package service;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,11 +24,23 @@ public class SuggestionServiceTest {
 	
 	
 	@Test
-	public void test() {
+	public void picksRandomRestaurant() {
 		when(restaurants.getRestaurant(any(Random.class))).thenReturn(expected);
-		
 		RestaurantSuggestion actual = service.getSuggestion(restaurants, date);
-		
 		assertThat(actual).isEqualTo(expected);
+	}
+	
+	@Test
+	public void wrapsExceptions() {
+		Exception expected = new RuntimeException();
+		when(restaurants.getRestaurant(any(Random.class))).thenThrow(expected);
+		
+		try {
+			service.getSuggestion(restaurants, date);
+			fail("Expected exception");
+		} catch(Exception actual) {
+			assertThat(actual.getCause()).isEqualTo(expected);
+		} 
+		
 	}
 }

@@ -9,7 +9,6 @@ import com.basho.riak.client.api.commands.kv.FetchValue;
 import com.basho.riak.client.api.commands.kv.FetchValue.Response;
 import com.yammer.tenacity.core.TenacityCommand;
 
-import domain.Restaurant;
 import domain.RestaurantList;
 
 public class FetchRestaurantsCommand extends TenacityCommand<Optional<RestaurantList>>{
@@ -28,10 +27,4 @@ public class FetchRestaurantsCommand extends TenacityCommand<Optional<Restaurant
 		Response response = riakClient.execute(fetchValue);
 		return Optional.ofNullable(response.getValue(RestaurantList.class));
 	}
-
-	@Override
-	protected Optional<RestaurantList> getFallback() {
-		return Optional.of(RestaurantList.createFallback(new Restaurant("Failure: Kebaben")));
-	}
-
 }
